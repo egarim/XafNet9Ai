@@ -1,0 +1,25 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <CheckEolTargetFramework>false</CheckEolTargetFramework>
+    <Deterministic>false</Deterministic>
+    <AssemblyVersion>1.0.*</AssemblyVersion>
+    <FileVersion>1.0.0.0</FileVersion>
+    <Configurations>Debug;Release;EasyTest</Configurations>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="DevExpress.Drawing.Skia" Version="24.2.1-alpha-24260" />
+    <PackageReference Include="DevExpress.ExpressApp.Api.Xpo.All" Version="24.2.1-alpha-24260" />
+    <PackageReference Include="DevExpress.ExpressApp.CodeAnalysis" Version="24.2.1-alpha-24260" />
+    <PackageReference Include="DevExpress.ExpressApp.ReportsV2" Version="24.2.1-alpha-24260" />
+    <PackageReference Include="DevExpress.ExpressApp.Validation" Version="24.2.1-alpha-24260" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.4" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.7.3" />
+    <PackageReference Include="Swashbuckle.AspNetCore.Annotations" Version="6.7.3" />
+    <PackageReference Include="System.Numerics.Tensors" Version="9.0.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\XafNet9Ai.Module\XafNet9Ai.Module.csproj" />
+  </ItemGroup>
+</Project>
