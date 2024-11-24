@@ -49,6 +49,8 @@
     <PackageReference Include="DevExpress.Persistent.BaseImpl.Xpo" Version="24.2.1-alpha-24260" />
     <PackageReference Include="DevExpress.RichEdit.Export" Version="24.2.1-alpha-24260" />
     <PackageReference Include="DevExpress.Win.Design" Version="24.2.1-alpha-24260" />
+    <PackageReference Include="Microsoft.Extensions.AI.Abstractions" Version="9.0.1-preview.1.24570.5" />
+    <PackageReference Include="Microsoft.Extensions.AI.OpenAI" Version="9.0.1-preview.1.24570.5" />
     <PackageReference Include="System.Numerics.Tensors" Version="9.0.0" />
   </ItemGroup>
   <ItemGroup>
