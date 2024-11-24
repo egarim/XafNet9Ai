@@ -8,9 +8,43 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.DependencyInjection;
 
+using Microsoft.Extensions.Logging;
+using DevExpress.Spreadsheet.Charts;
 namespace XafNet9Ai.Module.Controllers
 {
+    //TODO implmemente rate limit middleware
+    public static class UseLanguageStep
+    {
+        public static ChatClientBuilder UserLanguage(this ChatClientBuilder chatClientBuilder, string language)
+        {
+            chatClientBuilder.Use(inner => new UseLanguageClient(inner, language));
+            return chatClientBuilder;
+        }
+        private class UseLanguageClient(IChatClient chatClient, string language):DelegatingChatClient(chatClient)
+        {
+            public override async Task<ChatCompletion> CompleteAsync(IList<ChatMessage> chatMessages, ChatOptions options = null, CancellationToken cancellationToken = default)
+            {
+                //HACK Chat augmentation
+                //chatMessages.Add(new ChatMessage(ChatRole.User, $"Always reply in the language {language}"));
+                ChatMessage promptAugmentation = new ChatMessage(ChatRole.System, $"User language is {language}");
+                chatMessages.Add(promptAugmentation);
+                try
+                {
+                    return await base.CompleteAsync(chatMessages, options, cancellationToken);
+                }
+                finally
+                {
+                    //cleanup
+                    chatMessages.Remove(promptAugmentation);
+                }
+              
+
+            }
+        }
+    }
     public class Cart
     {
         public object NumPairOfSocks { get; set; }
@@ -31,6 +65,7 @@ namespace XafNet9Ai.Module.Controllers
     }
     public class ChatClientController : ViewController
     {
+        SimpleAction ChatPipeLine;
         SimpleAction ChatWithFunctions;
         SimpleAction ChatWithStreaming;
         SimpleAction TestNewChatClient;
@@ -45,14 +80,55 @@ namespace XafNet9Ai.Module.Controllers
 
             ChatWithFunctions = new SimpleAction(this, "Chat With Functions", "View");
             ChatWithFunctions.Execute += ChatWithFunctions_Execute;
+
+            ChatPipeLine = new SimpleAction(this, "Chat Pipeline", "View");
+            ChatPipeLine.Execute += ChatPipeLine_Execute;
             
 
 
         }
-        private void action_Execute(object sender, SimpleActionExecuteEventArgs e)
+        private async void ChatPipeLine_Execute(object sender, SimpleActionExecuteEventArgs e)
         {
-            // Execute your business logic (https://docs.devexpress.com/eXpressAppFramework/112737/).
+
+          
+
+            var endpoint = "http://localhost:11434/";
+            var modelId = "llama3.1";
+
+
+            //using host builder and chat client builder
+            //var HostBuilder = Host.CreateApplicationBuilder();
+            //var ChatBuilder = HostBuilder.Services.AddChatClient(new OllamaChatClient(endpoint, modelId: modelId));
+            //ChatBuilder.UseFunctionInvocation();
+            //var ChatFromHostBuilder=  ChatBuilder.Build();
+
+            //var HostInstance=HostBuilder.Build();
+
+               Cart cart = new Cart();
+            var GetPriceTool = AIFunctionFactory.Create(cart.GetPrice);
+            var AddCartTook = AIFunctionFactory.Create(cart.AdSocksToCart);
+
+            var ChatOptions = new ChatOptions()
+            {
+                Tools = [GetPriceTool, AddCartTook]
+            };
+
+            IChatClient client = new OllamaChatClient(endpoint, modelId: modelId)
+                .AsBuilder()
+                .UseFunctionInvocation()
+                .UserLanguage("spanish")
+                .Build();
+
+            List<ChatMessage> conversation =
+            [
+                new(ChatRole.System, "You are a helpful AI assistant"),
+            new(ChatRole.User, "Do I need an umbrella?")
+            ];
+
+            Debug.WriteLine(await client.CompleteAsync("Do I need an umbrella?", ChatOptions));
+
         }
+  
        
         private async void ChatWithStreaming_Execute(object sender, SimpleActionExecuteEventArgs e)
         {
