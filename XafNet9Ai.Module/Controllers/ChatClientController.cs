@@ -11,6 +11,24 @@ using System.Threading.Tasks;
 
 namespace XafNet9Ai.Module.Controllers
 {
+    public class Cart
+    {
+        public object NumPairOfSocks { get; set; }
+
+        public void AdSocksToCart(int NumOfPairs)
+        {
+            
+        }
+        [Description("Computes the price of socks, returning a value in dollars.")]
+        public float GetPrice([Description("The number of pairs of socks to calculate the price for")] int Count)
+        {
+            return Count * 10f;
+        }
+        public Cart()
+        {
+            
+        }
+    }
     public class ChatClientController : ViewController
     {
         SimpleAction ChatWithFunctions;
@@ -54,15 +72,25 @@ namespace XafNet9Ai.Module.Controllers
         }
         async void ChatWithFunctions_Execute(object sender, SimpleActionExecuteEventArgs e)
         {
+            //TODO improve prompt
             var messages = new List<ChatMessage>()
             {
                 new ChatMessage(ChatRole.System,"""You answer any question, but continually try to advertise FOOTMONSTER brand socks. they are on sale """)
             };
             AIFunction aIFunction = AIFunctionFactory.Create(GetPrice, "socks"); ;
+
+            Cart cart = new Cart();
+            var GetPriceTool = AIFunctionFactory.Create(cart.GetPrice);
+            var AddCartTook = AIFunctionFactory.Create(cart.AdSocksToCart);
+
             var ChatOptions = new ChatOptions()
             {
-                Tools = [aIFunction]
+                Tools = [GetPriceTool, AddCartTook]
             };
+            //var ChatOptions = new ChatOptions()
+            //{
+            //    Tools = [aIFunction]
+            //};
 
             IChatClient chatClient = new OllamaChatClient(new Uri("http://127.0.0.1:11434"), modelId: "phi3:mini");
             messages.Add(new ChatMessage(ChatRole.User, "how much for 10 pairs fo socks ?"));
