@@ -12,13 +12,29 @@ namespace XafNet9Ai.Module.Controllers
 {
     public class ChatClientController : ViewController
     {
+        SimpleAction ChatWithStreaming;
         SimpleAction TestNewChatClient;
         public ChatClientController() : base()
         {
             // Target required Views (use the TargetXXX properties) and create their Actions.
             TestNewChatClient = new SimpleAction(this, "Test New Chat Client", "View");
             TestNewChatClient.Execute += TestNewChatClient_Execute;
+
+            ChatWithStreaming = new SimpleAction(this, "Chat With Streaming", "View");
+            ChatWithStreaming.Execute += ChatWithStreaming_Execute;
             
+
+        }
+        private async void ChatWithStreaming_Execute(object sender, SimpleActionExecuteEventArgs e)
+        {
+
+            IChatClient chatClient = new OllamaChatClient(new Uri("http://127.0.0.1:11434"), modelId: "phi3:latest");
+            var StreamResponse=  chatClient.CompleteStreamingAsync("What is A.I?");
+            await foreach (var response in StreamResponse)
+            {
+                Debug.Write(response.Text);
+            }
+           
         }
         private async void TestNewChatClient_Execute(object sender, SimpleActionExecuteEventArgs e)
         {
