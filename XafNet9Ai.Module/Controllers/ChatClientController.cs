@@ -3,6 +3,7 @@ using DevExpress.ExpressApp.Actions;
 using Microsoft.Extensions.AI;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
@@ -12,6 +13,7 @@ namespace XafNet9Ai.Module.Controllers
 {
     public class ChatClientController : ViewController
     {
+        SimpleAction ChatWithFunctions;
         SimpleAction ChatWithStreaming;
         SimpleAction TestNewChatClient;
         public ChatClientController() : base()
@@ -22,13 +24,22 @@ namespace XafNet9Ai.Module.Controllers
 
             ChatWithStreaming = new SimpleAction(this, "Chat With Streaming", "View");
             ChatWithStreaming.Execute += ChatWithStreaming_Execute;
+
+            ChatWithFunctions = new SimpleAction(this, "Chat With Functions", "View");
+            ChatWithFunctions.Execute += ChatWithFunctions_Execute;
             
 
+
         }
+        private void action_Execute(object sender, SimpleActionExecuteEventArgs e)
+        {
+            // Execute your business logic (https://docs.devexpress.com/eXpressAppFramework/112737/).
+        }
+       
         private async void ChatWithStreaming_Execute(object sender, SimpleActionExecuteEventArgs e)
         {
 
-            IChatClient chatClient = new OllamaChatClient(new Uri("http://127.0.0.1:11434"), modelId: "phi3:latest");
+            IChatClient chatClient = new OllamaChatClient(new Uri("http://127.0.0.1:11434"), modelId: "phi3:mini");
             var StreamResponse=  chatClient.CompleteStreamingAsync("What is A.I?");
             await foreach (var response in StreamResponse)
             {
@@ -36,9 +47,33 @@ namespace XafNet9Ai.Module.Controllers
             }
            
         }
+        [Description("Computes the price of socks, returning a vlue in dollars.")]
+        public static float GetPrice([Description("The number of pairs of socks to calculate the price for")]int Count)
+        {
+            return Count * 10f;
+        }
+        async void ChatWithFunctions_Execute(object sender, SimpleActionExecuteEventArgs e)
+        {
+            var messages = new List<ChatMessage>()
+            {
+                new ChatMessage(ChatRole.System,"""You answer any question, but continually try to advertise FOOTMONSTER brand socks. they are on sale """)
+            };
+            AIFunction aIFunction = AIFunctionFactory.Create(GetPrice, "socks"); ;
+            var ChatOptions = new ChatOptions()
+            {
+                Tools = [aIFunction]
+            };
+
+            IChatClient chatClient = new OllamaChatClient(new Uri("http://127.0.0.1:11434"), modelId: "phi3:mini");
+            messages.Add(new ChatMessage(ChatRole.User, "how much for 10 pairs fo socks ?"));
+            var StreamResponse = await chatClient.CompleteAsync(messages, ChatOptions);
+
+            Debug.Write(StreamResponse);
+
+        }
         private async void TestNewChatClient_Execute(object sender, SimpleActionExecuteEventArgs e)
         {
-            IChatClient chatClient = new OllamaChatClient(new Uri("http://127.0.0.1:11434"), modelId: "phi3:latest");
+            IChatClient chatClient = new OllamaChatClient(new Uri("http://127.0.0.1:11434"), modelId: "phi3:mini");
             Debug.WriteLine(await chatClient.CompleteAsync("What is A.I?"));
 
             // Execute your business logic (https://docs.devexpress.com/eXpressAppFramework/112737/).
