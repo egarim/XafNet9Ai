@@ -52,6 +52,7 @@
     <PackageReference Include="Microsoft.Extensions.AI.Abstractions" Version="9.0.1-preview.1.24570.5" />
     <PackageReference Include="Microsoft.Extensions.AI.OpenAI" Version="9.0.1-preview.1.24570.5" />
     <PackageReference Include="System.Numerics.Tensors" Version="9.0.0" />
+    <PackageReference Include="System.Threading.RateLimiting" Version="9.0.0" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\XafNet9Ai.Module\XafNet9Ai.Module.csproj" />

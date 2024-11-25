@@ -31,6 +31,7 @@
 		<PackageReference Include="Microsoft.KernelMemory.Abstractions" Version="0.93.241118.1" />
 		<PackageReference Include="Microsoft.KernelMemory.Core" Version="0.93.241118.1" />
 		<PackageReference Include="Microsoft.SemanticKernel" Version="1.30.0" />
+		<PackageReference Include="System.Threading.RateLimiting" Version="9.0.0" />
 		<PackageReference Include="Toolbelt.Blazor.SpeechRecognition" Version="1.0.0" />
 	</ItemGroup>
 
