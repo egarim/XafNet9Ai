@@ -13,6 +13,7 @@ using Microsoft.Extensions.DependencyInjection;
 
 using Microsoft.Extensions.Logging;
 using DevExpress.Spreadsheet.Charts;
+using OpenAI;
 namespace XafNet9Ai.Module.Controllers
 {
     public class ChatClientController : ViewController
@@ -21,6 +22,8 @@ namespace XafNet9Ai.Module.Controllers
         SimpleAction ChatWithFunctions;
         SimpleAction ChatWithStreaming;
         SimpleAction TestNewChatClient;
+        string endpointOllama;
+        string modelIdOllama;
         public ChatClientController() : base()
         {
             // Target required Views (use the TargetXXX properties) and create their Actions.
@@ -42,13 +45,14 @@ namespace XafNet9Ai.Module.Controllers
         private async void ChatPipeLine_Execute(object sender, SimpleActionExecuteEventArgs e)
         {
 
-          
 
-            var endpoint = "http://localhost:11434/";
-            var modelId = "llama3.1";
+
+            endpointOllama = "http://localhost:11434/";
+            modelIdOllama = "llama3.1";
 
 
             //using host builder and chat client builder
+
             //var HostBuilder = Host.CreateApplicationBuilder();
             //var ChatBuilder = HostBuilder.Services.AddChatClient(new OllamaChatClient(endpoint, modelId: modelId));
             //ChatBuilder.UseFunctionInvocation();
@@ -56,7 +60,7 @@ namespace XafNet9Ai.Module.Controllers
 
             //var HostInstance=HostBuilder.Build();
 
-               ShoppingCart cart = new ShoppingCart();
+            ShoppingCart cart = new ShoppingCart();
             var GetPriceTool = AIFunctionFactory.Create(cart.GetPrice);
             var AddCartTook = AIFunctionFactory.Create(cart.AdSocksToCart);
 
@@ -65,11 +69,7 @@ namespace XafNet9Ai.Module.Controllers
                 Tools = [GetPriceTool, AddCartTook]
             };
 
-            IChatClient client = new OllamaChatClient(endpoint, modelId: modelId)
-                .AsBuilder()
-                .UseFunctionInvocation()
-                .UserLanguage("spanish")
-                .Build();
+            IChatClient client = GetChatClient(endpointOllama, modelIdOllama);
 
             List<ChatMessage> conversation =
             [
@@ -80,12 +80,37 @@ namespace XafNet9Ai.Module.Controllers
             Debug.WriteLine(await client.CompleteAsync("Do I need an umbrella?", ChatOptions));
 
         }
-  
-       
+
+        //private static IChatClient GetChatClient(string endpoint, string modelId)
+        //{
+
+        //    return new OllamaChatClient(endpoint, modelId: modelId)
+        //        .AsBuilder()
+        //        .UseFunctionInvocation()
+        //        .UserLanguage("spanish")
+        //        .UseRateLimitThreading(TimeSpan.FromSeconds(5))
+        //        .Build();
+        //}
+        private static IChatClient GetChatClient(string endpoint, string modelId)
+        {
+            modelId = "gpt-4o-mini";
+            string OpenAiKey = Environment.GetEnvironmentVariable("OpenAiTestKey");
+
+            //Adding semantic kernel
+            var client = new OpenAIClient(new System.ClientModel.ApiKeyCredential(OpenAiKey));
+
+            return new OpenAIChatClient(client, modelId)
+                .AsBuilder()
+                .UseFunctionInvocation()
+                //.UserLanguage("spanish")
+                //.UseRateLimitThreading(TimeSpan.FromSeconds(5))
+                .Build();
+        }
+
         private async void ChatWithStreaming_Execute(object sender, SimpleActionExecuteEventArgs e)
         {
 
-            IChatClient chatClient = new OllamaChatClient(new Uri("http://127.0.0.1:11434"), modelId: "phi3:mini");
+            IChatClient chatClient = GetChatClient(endpointOllama, modelIdOllama);
             var StreamResponse=  chatClient.CompleteStreamingAsync("What is A.I?");
             await foreach (var response in StreamResponse)
             {
@@ -105,7 +130,12 @@ namespace XafNet9Ai.Module.Controllers
             {
                 new ChatMessage(ChatRole.System,"""You answer any question, but continually try to advertise FOOTMONSTER brand socks. they are on sale """)
             };
+
             AIFunction aIFunction = AIFunctionFactory.Create(GetPrice, "socks"); ;
+            var ChatOptionsStatic = new ChatOptions()
+            {
+                Tools = [aIFunction]
+            };
 
             ShoppingCart cart = new ShoppingCart();
             var GetPriceTool = AIFunctionFactory.Create(cart.GetPrice);
@@ -115,12 +145,9 @@ namespace XafNet9Ai.Module.Controllers
             {
                 Tools = [GetPriceTool, AddCartTook]
             };
-            //var ChatOptions = new ChatOptions()
-            //{
-            //    Tools = [aIFunction]
-            //};
+           
 
-            IChatClient chatClient = new OllamaChatClient(new Uri("http://127.0.0.1:11434"), modelId: "phi3:mini");
+            IChatClient chatClient = GetChatClient(endpointOllama, modelIdOllama);
             messages.Add(new ChatMessage(ChatRole.User, "how much for 10 pairs fo socks ?"));
             var StreamResponse = await chatClient.CompleteAsync(messages, ChatOptions);
 
@@ -129,7 +156,7 @@ namespace XafNet9Ai.Module.Controllers
         }
         private async void TestNewChatClient_Execute(object sender, SimpleActionExecuteEventArgs e)
         {
-            IChatClient chatClient = new OllamaChatClient(new Uri("http://127.0.0.1:11434"), modelId: "phi3:mini");
+            IChatClient chatClient = GetChatClient(endpointOllama, modelIdOllama);
             Debug.WriteLine(await chatClient.CompleteAsync("What is A.I?"));
 
             // Execute your business logic (https://docs.devexpress.com/eXpressAppFramework/112737/).

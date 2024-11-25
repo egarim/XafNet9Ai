@@ -4,13 +4,13 @@
 @using DevExpress.Blazor
 @using Markdig
 
-<DxAIChat CssClass="my-chat" Initialized="Initialized" 
+<DxAIChat CssClass="my-chat"
           RenderMode="AnswerRenderMode.Markdown" 
           UseStreaming="true"
           SizeMode="SizeMode.Medium">
     <EmptyMessageAreaTemplate>
         <div class="my-chat-ui-description">
-            <span style="font-weight: bold; color: #008000;">Rag Chat</span> Assistant is ready to answer your questions.
+            <span style="font-weight: bold; color: #008000;">Microsoft A.I Extensions</span> Assistant is ready to answer your questions.
         </div>
     </EmptyMessageAreaTemplate>
     <MessageContentTemplate>
@@ -47,14 +47,7 @@
         }
     }
     
-    async Task Initialized(IAIChat chat)
-    {
-        await chat.UseAssistantAsync(new OpenAIAssistantOptions(
-            this.Value.FileName,
-           this.Value.FileContent,
-            this.Value.Prompt)
-        );
-    }
+
 
     MarkupString ToHtml(string text)
     {

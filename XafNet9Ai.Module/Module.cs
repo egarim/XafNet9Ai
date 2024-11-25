@@ -13,16 +13,25 @@ using DevExpress.ExpressApp.Model.DomainLogics;
 using DevExpress.ExpressApp.Model.NodeGenerators;
 using DevExpress.Xpo;
 using DevExpress.ExpressApp.Xpo;
+using XafSmartEditors.Razor.MemoryChat;
+using XafSmartEditors.Razor.RagChat;
 
 namespace XafNet9Ai.Module;
 
 // For more typical usage scenarios, be sure to check out https://docs.devexpress.com/eXpressAppFramework/DevExpress.ExpressApp.ModuleBase.
 public sealed class XafNet9AiModule : ModuleBase {
     public XafNet9AiModule() {
-		// 
-		// XafNet9AiModule
-		// 
-		AdditionalExportedTypes.Add(typeof(DevExpress.Persistent.BaseImpl.ModelDifference));
+        // 
+        // XafNet9AiModule
+        // 
+
+        AdditionalExportedTypes.Add(typeof(IRagDataImp));
+        AdditionalExportedTypes.Add(typeof(ChatView));
+        AdditionalExportedTypes.Add(typeof(MemoryChatView));
+        AdditionalExportedTypes.Add(typeof(IMemoryDataImp));
+
+
+        AdditionalExportedTypes.Add(typeof(DevExpress.Persistent.BaseImpl.ModelDifference));
 		AdditionalExportedTypes.Add(typeof(DevExpress.Persistent.BaseImpl.ModelDifferenceAspect));
         AdditionalExportedTypes.Add(typeof(DevExpress.Persistent.BaseImpl.BaseObject));
         AdditionalExportedTypes.Add(typeof(DevExpress.Persistent.BaseImpl.AuditDataItemPersistent));
