@@ -15,54 +15,6 @@ using Microsoft.Extensions.Logging;
 using DevExpress.Spreadsheet.Charts;
 namespace XafNet9Ai.Module.Controllers
 {
-    //TODO implmemente rate limit middleware
-    public static class UseLanguageStep
-    {
-        public static ChatClientBuilder UserLanguage(this ChatClientBuilder chatClientBuilder, string language)
-        {
-            chatClientBuilder.Use(inner => new UseLanguageClient(inner, language));
-            return chatClientBuilder;
-        }
-        private class UseLanguageClient(IChatClient chatClient, string language):DelegatingChatClient(chatClient)
-        {
-            public override async Task<ChatCompletion> CompleteAsync(IList<ChatMessage> chatMessages, ChatOptions options = null, CancellationToken cancellationToken = default)
-            {
-                //HACK Chat augmentation
-                //chatMessages.Add(new ChatMessage(ChatRole.User, $"Always reply in the language {language}"));
-                ChatMessage promptAugmentation = new ChatMessage(ChatRole.System, $"User language is {language}");
-                chatMessages.Add(promptAugmentation);
-                try
-                {
-                    return await base.CompleteAsync(chatMessages, options, cancellationToken);
-                }
-                finally
-                {
-                    //cleanup
-                    chatMessages.Remove(promptAugmentation);
-                }
-              
-
-            }
-        }
-    }
-    public class Cart
-    {
-        public object NumPairOfSocks { get; set; }
-
-        public void AdSocksToCart(int NumOfPairs)
-        {
-            
-        }
-        [Description("Computes the price of socks, returning a value in dollars.")]
-        public float GetPrice([Description("The number of pairs of socks to calculate the price for")] int Count)
-        {
-            return Count * 10f;
-        }
-        public Cart()
-        {
-            
-        }
-    }
     public class ChatClientController : ViewController
     {
         SimpleAction ChatPipeLine;
@@ -104,7 +56,7 @@ namespace XafNet9Ai.Module.Controllers
 
             //var HostInstance=HostBuilder.Build();
 
-               Cart cart = new Cart();
+               ShoppingCart cart = new ShoppingCart();
             var GetPriceTool = AIFunctionFactory.Create(cart.GetPrice);
             var AddCartTook = AIFunctionFactory.Create(cart.AdSocksToCart);
 
@@ -155,7 +107,7 @@ namespace XafNet9Ai.Module.Controllers
             };
             AIFunction aIFunction = AIFunctionFactory.Create(GetPrice, "socks"); ;
 
-            Cart cart = new Cart();
+            ShoppingCart cart = new ShoppingCart();
             var GetPriceTool = AIFunctionFactory.Create(cart.GetPrice);
             var AddCartTook = AIFunctionFactory.Create(cart.AdSocksToCart);
 

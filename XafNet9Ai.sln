@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XafNet9Ai.Win", "XafNet9Ai.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XafNet9Ai.Blazor.Server", "XafNet9Ai.Blazor.Server\XafNet9Ai.Blazor.Server.csproj", "{ABEF0D92-10DC-5116-B7CB-9E448033AF0A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XafSmartEditors.Razor", "XafSmartEditors.Razor\XafSmartEditors.Razor.csproj", "{BB2C89B9-1ED5-2F96-BE1E-60AAA8666258}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -42,6 +44,12 @@ Global
 		{ABEF0D92-10DC-5116-B7CB-9E448033AF0A}.EasyTest|Any CPU.Build.0 = EasyTest|Any CPU
 		{ABEF0D92-10DC-5116-B7CB-9E448033AF0A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{ABEF0D92-10DC-5116-B7CB-9E448033AF0A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BB2C89B9-1ED5-2F96-BE1E-60AAA8666258}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BB2C89B9-1ED5-2F96-BE1E-60AAA8666258}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BB2C89B9-1ED5-2F96-BE1E-60AAA8666258}.EasyTest|Any CPU.ActiveCfg = Debug|Any CPU
+		{BB2C89B9-1ED5-2F96-BE1E-60AAA8666258}.EasyTest|Any CPU.Build.0 = Debug|Any CPU
+		{BB2C89B9-1ED5-2F96-BE1E-60AAA8666258}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BB2C89B9-1ED5-2F96-BE1E-60AAA8666258}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
