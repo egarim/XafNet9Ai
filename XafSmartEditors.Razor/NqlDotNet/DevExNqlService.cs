@@ -6,7 +6,7 @@ using System.Diagnostics;
 using System.Text;
 
 using System.Text.Json;
-namespace NqlDotNet.DevExpress
+namespace XafSmartEditors.Razor.NqlDotNet
 {
 #pragma warning disable SKEXP0010
     public class DevExNqlService : INqlService

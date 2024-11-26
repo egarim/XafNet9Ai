@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 
-namespace NqlDotNet
+namespace XafSmartEditors.Razor.NqlDotNet
 {
     public interface INqlService
     {

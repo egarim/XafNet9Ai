@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace NqlDotNet
+namespace XafSmartEditors.Razor.NqlDotNet
 {
     public class CriteriaResult
     {

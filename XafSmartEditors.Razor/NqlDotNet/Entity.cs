@@ -1,4 +1,4 @@
-﻿namespace NqlDotNet
+﻿namespace XafSmartEditors.Razor.NqlDotNet
 {
     public class Entity
     {

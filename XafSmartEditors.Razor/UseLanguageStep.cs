@@ -3,7 +3,7 @@ using System;
 using System.Linq;
 using System.Threading.RateLimiting;
 
-namespace XafNet9Ai.Module.Controllers
+namespace XafSmartEditors.Razor
 {
 
     public static class UseRateLimitMiddleware

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Linq;
-namespace XafNet9Ai.Module.Controllers
+namespace XafSmartEditors.Razor
 {
     public class ShoppingCart
     {

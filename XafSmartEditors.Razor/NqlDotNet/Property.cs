@@ -1,6 +1,6 @@
 ﻿using System.Reflection;
 
-namespace NqlDotNet
+namespace XafSmartEditors.Razor.NqlDotNet
 {
     public class Property
     {

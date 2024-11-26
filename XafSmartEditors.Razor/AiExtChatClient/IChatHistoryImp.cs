@@ -4,110 +4,50 @@ using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Model;
 using DevExpress.Persistent.Base;
 using DevExpress.Persistent.Validation;
-using Microsoft.SemanticKernel.ChatCompletion;
-using Microsoft.SemanticKernel.Memory;
+using Microsoft.Extensions.AI;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
-#pragma warning disable IDE0039
-#pragma warning disable SKEXP0010
-#pragma warning disable SKEXP0001
-#pragma warning disable SKEXP0050
-namespace XafSmartEditors.Razor.MemoryChat
+
+namespace XafSmartEditors.Razor.AiExtChatClient
 {
     [DomainComponent]
-    public class IMemoryDataImp : IMemoryData, IXafEntityObject/*, IObjectSpaceLink*/, INotifyPropertyChanged
+    [DefaultClassOptions]
+    public class IChatHistoryImp : IXafEntityObject/*, IObjectSpaceLink*/, INotifyPropertyChanged,IChatHistory
     {
         //private IObjectSpace objectSpace;
         private void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
-        public IMemoryDataImp()
+        public IChatHistoryImp()
         {
             Oid = Guid.NewGuid();
+            Messages = new List<ChatMessage>();
         }
 
         [DevExpress.ExpressApp.Data.Key]
         [Browsable(false)]  // Hide the entity identifier from UI.
         public Guid Oid { get; set; }
 
-
-        double minimumRelevanceScore;
-        string collectionName;
-        IChatCompletionService chatCompletionService;
-        SemanticTextMemory semanticTextMemory;
-        string prompt;
-        string fileName;
-
-        public SemanticTextMemory SemanticTextMemory
+        List<ChatMessage> messages;
+        public List<ChatMessage> Messages
         {
-            get => semanticTextMemory;
+            get => messages;
             set
             {
-                if (semanticTextMemory == value)
+                if (messages == value)
+                {
                     return;
-                semanticTextMemory = value;
+                }
+
+                messages = value;
                 OnPropertyChanged();
             }
         }
-
-        public IChatCompletionService ChatCompletionService
-        {
-            get => chatCompletionService;
-            set
-            {
-                if (chatCompletionService == value)
-                    return;
-                chatCompletionService = value;
-                OnPropertyChanged();
-            }
-        }
-
-
-
-        public string Prompt
-        {
-            get => prompt;
-            set
-            {
-                if (prompt == value)
-                    return;
-                prompt = value;
-                OnPropertyChanged();
-            }
-        }
-
-
-        public string CollectionName
-        {
-            get => collectionName;
-            set
-            {
-                if (collectionName == value)
-                    return;
-                collectionName = value;
-                OnPropertyChanged();
-            }
-        }
-
-        
-        public double MinimumRelevanceScore
-        {
-            get => minimumRelevanceScore;
-            set
-            {
-                if (minimumRelevanceScore == value)
-                    return;
-                minimumRelevanceScore = value;
-                OnPropertyChanged();
-            }
-        }
-        
-
 
         #region IXafEntityObject members (see https://docs.devexpress.com/eXpressAppFramework/DevExpress.ExpressApp.IXafEntityObject)
         void IXafEntityObject.OnCreated()

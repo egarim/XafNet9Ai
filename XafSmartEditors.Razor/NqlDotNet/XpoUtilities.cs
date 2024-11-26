@@ -7,7 +7,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace NqlDotNet.DevExpress
+namespace XafSmartEditors.Razor.NqlDotNet
 {
  
     public class XpoUtilities
