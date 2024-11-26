@@ -16,6 +16,7 @@ using DevExpress.ExpressApp.Xpo;
 using XafSmartEditors.Razor.MemoryChat;
 using XafSmartEditors.Razor.RagChat;
 using XafSmartEditors.Razor.AiExtChatClient;
+using XafSmartEditors.Razor.AiExtChatClientFunctions;
 
 namespace XafNet9Ai.Module;
 
@@ -34,6 +35,9 @@ public sealed class XafNet9AiModule : ModuleBase {
 
         AdditionalExportedTypes.Add(typeof(AiExtChatView));
         AdditionalExportedTypes.Add(typeof(IChatHistoryImp));
+
+        AdditionalExportedTypes.Add(typeof(AiExtChatViewFunctions));
+        AdditionalExportedTypes.Add(typeof(IChatHistoryFunctionsImp));
 
         AdditionalExportedTypes.Add(typeof(DevExpress.Persistent.BaseImpl.ModelDifference));
 		AdditionalExportedTypes.Add(typeof(DevExpress.Persistent.BaseImpl.ModelDifferenceAspect));

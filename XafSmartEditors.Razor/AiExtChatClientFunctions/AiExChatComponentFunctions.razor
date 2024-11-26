@@ -1,0 +1,34 @@
+﻿@using DevExpress.AIIntegration.OpenAI.Services
+@using DevExpress.AIIntegration.Blazor.Chat
+@using System.Reflection
+@using DevExpress.Blazor
+@using Markdig
+
+<DxAIChat CssClass="my-chat"
+          RenderMode="AnswerRenderMode.Markdown"
+          MessageSent="MessageSent"
+          UseStreaming="true"
+          SizeMode="SizeMode.Medium">
+    <EmptyMessageAreaTemplate>
+        <div class="my-chat-ui-description">
+            <span style="font-weight: bold; color: #008000;">Microsoft A.I Extensions</span> Assistant is ready to answer your questions.
+        </div>
+    </EmptyMessageAreaTemplate>
+    <MessageContentTemplate>
+        <div class="my-chat-content">
+            @ToHtml(context.Content)
+        </div>
+    </MessageContentTemplate>
+</DxAIChat>
+
+<style>
+    .my-chat {
+        width: 680px;
+        margin: 20px;
+        height: 500px;
+    }
+</style>
+
+
+
+

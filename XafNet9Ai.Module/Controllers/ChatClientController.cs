@@ -61,7 +61,7 @@ namespace XafNet9Ai.Module.Controllers
 
             //var HostInstance=HostBuilder.Build();
 
-            ShoppingCart cart = new ShoppingCart();
+            var cart = new ShoppingCart(null);
             var GetPriceTool = AIFunctionFactory.Create(cart.GetPrice);
             var AddCartTook = AIFunctionFactory.Create(cart.AdSocksToCart);
 
@@ -138,7 +138,7 @@ namespace XafNet9Ai.Module.Controllers
                 Tools = [aIFunction]
             };
 
-            ShoppingCart cart = new ShoppingCart();
+            ShoppingCart cart = new ShoppingCart(null);
             var GetPriceTool = AIFunctionFactory.Create(cart.GetPrice);
             var AddCartTook = AIFunctionFactory.Create(cart.AdSocksToCart);
 

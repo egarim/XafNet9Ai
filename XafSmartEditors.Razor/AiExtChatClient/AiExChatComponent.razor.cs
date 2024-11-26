@@ -39,6 +39,7 @@ namespace XafSmartEditors.Razor.AiExtChatClient
 
             var message = new Message(MessageRole.Assistant, (result.Message.Text));
             args.SendMessage(message);
+          
         }
 
         MarkupString ToHtml(string text)
