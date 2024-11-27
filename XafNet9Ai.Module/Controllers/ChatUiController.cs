@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using XafNet9Ai.Module.BusinessObjects;
 using XafSmartEditors.Razor.AiExtChatClient;
 using XafSmartEditors.Razor.AiExtChatClientFunctions;
 using XafSmartEditors.Razor.RagChat;
@@ -23,8 +24,8 @@ namespace XafNet9Ai.Module.Controllers
 
             ChatClientFunctionsUi = new SimpleAction(this, "Chat Client Functions U.I", "View");
             ChatClientFunctionsUi.Execute += ChatClientFunctionsUi_Execute;
-            
 
+            this.TargetObjectType = typeof(ApplicationUser);
         }
         private void ChatClientFunctionsUi_Execute(object sender, SimpleActionExecuteEventArgs e)
         {

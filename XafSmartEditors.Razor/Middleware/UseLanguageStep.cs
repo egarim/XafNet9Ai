@@ -17,7 +17,7 @@ namespace XafSmartEditors.Razor.Middleware
             public override async Task<ChatCompletion> CompleteAsync(IList<ChatMessage> chatMessages, ChatOptions options = null, CancellationToken cancellationToken = default)
             {
                 //HACK Chat augmentation
-                //chatMessages.Add(new ChatMessage(ChatRole.User, $"Always reply in the language {language}"));
+     
                 ChatMessage promptAugmentation = new ChatMessage(ChatRole.System, $"User language is {language}");
                 chatMessages.Add(promptAugmentation);
                 try

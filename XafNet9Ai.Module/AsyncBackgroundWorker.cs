@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace XafSmartEditors.Razor.NqlDotNet
+namespace XafNet9Ai.Module
 {
   
   

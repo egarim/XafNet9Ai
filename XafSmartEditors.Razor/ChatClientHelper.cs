@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using XafSmartEditors.Razor.Middleware;
 
 namespace XafSmartEditors.Razor
 {
@@ -22,16 +23,18 @@ namespace XafSmartEditors.Razor
         //}
         public static IChatClient GetChatClient()
         {
-            string modelId = "gpt-4o-mini";
+            //GPT 4 min does not do a good count
+            //string modelId = "gpt-4o-mini"; 
+            string modelId = "gpt-4o";
             string OpenAiKey = Environment.GetEnvironmentVariable("OpenAiTestKey");
 
-            //Adding semantic kernel
+        
             var client = new OpenAIClient(new System.ClientModel.ApiKeyCredential(OpenAiKey));
 
             return new OpenAIChatClient(client, modelId)
                 .AsBuilder()
                 .UseFunctionInvocation()
-                //.UserLanguage("spanish")
+                .UserLanguage("spanish")
                 //.UseRateLimitThreading(TimeSpan.FromSeconds(5))
                 .Build();
         }
