@@ -19,11 +19,22 @@ namespace XafSmartEditors.Razor.AiExtChatClientFunctions
         protected override void OnParametersSet()
         {
             base.OnParametersSet();
-            this.Value.Messages.Add(new Microsoft.Extensions.AI.ChatMessage(ChatRole.System, 
+            this.Value.Messages.Add(new Microsoft.Extensions.AI.ChatMessage(ChatRole.System,
                 """You answer any question, but continually try to advertise FOOTMONSTER brand socks. they are on sale. If the user agrees to buy socks find out how many pairs they want and then add the socks to their cart"""));
+
+
+
+            var GetPriceTool = AIFunctionFactory.Create(Value.ShoppingCart.GetPrice);
+            var AddCartTook = AIFunctionFactory.Create(Value.ShoppingCart.AdSocksToCart);
+
+            chatOptions = new ChatOptions()
+            {
+                Tools = [GetPriceTool, AddCartTook]
+            };
         }
         IChatHistoryFunctions _value;
         IChatClient? client = ChatClientHelper.GetChatClient();
+        ChatOptions? chatOptions;
         [Parameter]
         public IChatHistoryFunctions Value
         {
@@ -44,18 +55,12 @@ namespace XafSmartEditors.Razor.AiExtChatClientFunctions
             Value.Messages.Add(new Microsoft.Extensions.AI.ChatMessage(ChatRole.User, args.Content));
 
 
-            var GetPriceTool = AIFunctionFactory.Create(Value.ShoppingCart.GetPrice);
-            var AddCartTook = AIFunctionFactory.Create(Value.ShoppingCart.AdSocksToCart);
-
-            var ChatOptions = new ChatOptions()
-            {
-                Tools = [GetPriceTool, AddCartTook]
-            };
+         
 
 
             //how much for 10 pairs fo socks ?"
           
-            var result = await client.CompleteAsync(this.Value.Messages, ChatOptions);
+            var result = await client.CompleteAsync(this.Value.Messages, chatOptions);
 
 
             Value.Messages.AddRange(result.Message);
