@@ -34,8 +34,8 @@ namespace XafSmartEditors.Razor
             return new OpenAIChatClient(client, modelId)
                 .AsBuilder()
                 .UseFunctionInvocation()
-                .UserLanguage("spanish")
-                //.UseRateLimitThreading(TimeSpan.FromSeconds(5))
+                 //.UserLanguage("spanish")
+                 .UseRateLimitThreading(TimeSpan.FromSeconds(15))
                 .Build();
         }
     }

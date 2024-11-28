@@ -22,4 +22,16 @@ This XAF solution is compiled in Dot Net 9 and uses the new Microsoft AI Extensi
 Analyze_Execute Method
 
 [embeddingGeneratorController.cs](https://github.com/egarim/XafNet9Ai/blob/master/XafNet9Ai.Module/Controllers/ImageDetectionController.cs)
-    
+
+
+### Fuctions
+
+[ChatClientHelper.cs](https://github.com/egarim/XafNet9Ai/blob/master/XafSmartEditors.Razor/ChatClientHelper.cs)
+[ShoppingCart.cs](https://github.com/egarim/XafNet9Ai/blob/master/XafSmartEditors.Razor/ShoppingCart.cs)
+[AiExChatComponentFunctions.razor.cs](https://github.com/egarim/XafNet9Ai/blob/master/XafSmartEditors.Razor/AiExtChatClientFunctions/AiExChatComponentFunctions.razor.cs)
+
+### Middleware
+
+ChatClientHelper.cs](https://github.com/egarim/XafNet9Ai/blob/master/XafSmartEditors.Razor/ChatClientHelper.cs)
+[Language Middleware](https://github.com/egarim/XafNet9Ai/blob/master/XafSmartEditors.Razor/Middleware/UseLanguageStep.cs)    
+[Rate Limit](https://github.com/egarim/XafNet9Ai/blob/master/XafSmartEditors.Razor/Middleware/UseRateLimitMiddleware.cs)    
