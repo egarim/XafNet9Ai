@@ -14,6 +14,7 @@ namespace XafNet9Ai.Module.Controllers
 {
     public class EmbeddingGeneratorController : ViewController
     {
+        SimpleAction GenerateZipEmbeddings;
         ParametrizedAction SemanticSearch;
         SimpleAction GeneratedEmbeddings;
         public EmbeddingGeneratorController() : base()
@@ -23,11 +24,25 @@ namespace XafNet9Ai.Module.Controllers
             GeneratedEmbeddings.Execute += GeneratedEmbeddings_Execute;
             GeneratedEmbeddings.TargetViewType = ViewType.DetailView;
             this.TargetObjectType = typeof(XpoEmbedding);
-          
+
+            GenerateZipEmbeddings = new SimpleAction(this, "Generate Zip Embeddings", "View");
+            GenerateZipEmbeddings.Execute += GenerateZipEmbeddings_Execute;
+            
 
             SemanticSearch = new ParametrizedAction(this, "Semantic Search", "View", typeof(string));
             SemanticSearch.Execute += SemanticSearch_Execute;
             SemanticSearch.TargetViewType = ViewType.ListView;
+
+        }
+        private async void GenerateZipEmbeddings_Execute(object sender, SimpleActionExecuteEventArgs e)
+        {
+            IEmbeddingGenerator<string, Embedding<float>> embeddingGenerator = new OllamaEmbeddingGenerator(new Uri("http://127.0.0.1:11434"), modelId: "all-minilm:latest");
+
+            var strings= this.View.ObjectSpace.GetObjectsQuery<XpoEmbedding>().Select(x => x.Text).ToList();
+
+            (string Value, Embedding<float> Embedding)[] ZipEmbeddings = await embeddingGenerator.GenerateAndZipAsync(strings);
+
+          
 
         }
         private async void SemanticSearch_Execute(object sender, ParametrizedActionExecuteEventArgs e)
@@ -40,9 +55,9 @@ namespace XafNet9Ai.Module.Controllers
             Debug.WriteLine($"vector lenght:{InputEmbedding.Vector.Length}");
 
 
-            var ZipEmbeddings= this.View.ObjectSpace.GetObjectsQuery<XpoEmbedding>().ToList();
+            var Embeddings= this.View.ObjectSpace.GetObjectsQuery<XpoEmbedding>().ToList();
 
-            var Closest = from candidate in ZipEmbeddings
+            var Closest = from candidate in Embeddings
                           let similarity = TensorPrimitives.CosineSimilarity(candidate.GetEmbedding().Vector.Span, InputEmbedding.Vector.Span)
                           orderby similarity descending
                           select new { Text = candidate.Text, Similarity = similarity, Code=candidate.Code };
@@ -89,16 +104,10 @@ namespace XafNet9Ai.Module.Controllers
 
 
 
-            //var InputEmbedding = await embeddingGenerator.GenerateEmbeddingAsync("hello");
+    
 
 
-            //var Closest = from candidate in ZipEmbeddings
-            //              let similarity = TensorPrimitives.CosineSimilarity(candidate.Embedding.Vector.Span, InputEmbedding.Vector.Span)
-            //              orderby similarity descending
-            //              select new { Text = candidate.Value, Similarity = similarity };
-
-
-            // Execute your business logic (https://docs.devexpress.com/eXpressAppFramework/112737/).
+           
         }
         protected override void OnActivated()
         {
