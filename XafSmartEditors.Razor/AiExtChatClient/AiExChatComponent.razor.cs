@@ -37,8 +37,10 @@ namespace XafSmartEditors.Razor.AiExtChatClient
 
             Value.Messages.AddRange(result.Message);
 
-            var message = new Message(MessageRole.Assistant, (result.Message.Text));
-            args.SendMessage(message);
+            //TODO fix after update
+
+            //var message = new Message(MessageRole.Assistant, (result.Message.Text));
+            //args.SendMessage(message);
           
         }
 

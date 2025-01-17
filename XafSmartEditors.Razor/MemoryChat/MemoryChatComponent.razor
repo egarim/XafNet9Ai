@@ -1,4 +1,4 @@
-﻿@using DevExpress.AIIntegration.OpenAI.Services
+﻿
 @using DevExpress.AIIntegration.Blazor.Chat
 @using System.Reflection
 @using DevExpress.AIIntegration.Services.Chat
@@ -94,8 +94,11 @@
         
         Debug.WriteLine(MessageContent);
         ChatHistory.AddAssistantMessage(MessageContent);
-        var message = new Message(MessageRole.Assistant, MessageContent);
-        args.SendMessage(message);
+
+        //TODO fix after update
+
+        // var message = new Message(MessageRole.Assistant, MessageContent);
+        // args.SendMessage(message);
     }
 
 

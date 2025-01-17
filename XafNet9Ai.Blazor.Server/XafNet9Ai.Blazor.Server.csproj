@@ -7,6 +7,7 @@
     <FileVersion>1.0.0.0</FileVersion>
     <Configurations>Debug;Release;EasyTest</Configurations>
     <ImplicitUsings>enable</ImplicitUsings>
+    <PlatformTarget>x64</PlatformTarget>
   </PropertyGroup>
   <ItemGroup>
     <None Remove="Model.xafml" />
@@ -17,17 +18,17 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="DevExpress.Drawing.Skia" Version="24.2.1-alpha-24260" />
-    <PackageReference Include="DevExpress.ExpressApp.Blazor" Version="24.2.1-alpha-24260" />
-    <PackageReference Include="DevExpress.ExpressApp.CodeAnalysis" Version="24.2.1-alpha-24260" />
-    <PackageReference Include="DevExpress.ExpressApp.Dashboards.Blazor" Version="24.2.1-alpha-24260" />
-    <PackageReference Include="DevExpress.ExpressApp.FileAttachment.Blazor" Version="24.2.1-alpha-24260" />
-    <PackageReference Include="DevExpress.ExpressApp.Notifications.Blazor" Version="24.2.1-alpha-24260" />
-    <PackageReference Include="DevExpress.ExpressApp.Office.Blazor" Version="24.2.1-alpha-24260" />
-    <PackageReference Include="DevExpress.ExpressApp.ReportsV2.Blazor" Version="24.2.1-alpha-24260" />
-    <PackageReference Include="DevExpress.ExpressApp.Scheduler.Blazor" Version="24.2.1-alpha-24260" />
-    <PackageReference Include="DevExpress.ExpressApp.Security.Xpo" Version="24.2.1-alpha-24260" />
-    <PackageReference Include="DevExpress.ExpressApp.Validation.Blazor" Version="24.2.1-alpha-24260" />
+    <PackageReference Include="DevExpress.Drawing.Skia" Version="24.2.3" />
+    <PackageReference Include="DevExpress.ExpressApp.Blazor" Version="24.2.3" />
+    <PackageReference Include="DevExpress.ExpressApp.CodeAnalysis" Version="24.2.3" />
+    <PackageReference Include="DevExpress.ExpressApp.Dashboards.Blazor" Version="24.2.3" />
+    <PackageReference Include="DevExpress.ExpressApp.FileAttachment.Blazor" Version="24.2.3" />
+    <PackageReference Include="DevExpress.ExpressApp.Notifications.Blazor" Version="24.2.3" />
+    <PackageReference Include="DevExpress.ExpressApp.Office.Blazor" Version="24.2.3" />
+    <PackageReference Include="DevExpress.ExpressApp.ReportsV2.Blazor" Version="24.2.3" />
+    <PackageReference Include="DevExpress.ExpressApp.Scheduler.Blazor" Version="24.2.3" />
+    <PackageReference Include="DevExpress.ExpressApp.Security.Xpo" Version="24.2.3" />
+    <PackageReference Include="DevExpress.ExpressApp.Validation.Blazor" Version="24.2.3" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="9.0.0" />
     <PackageReference Include="Microsoft.Extensions.AI.Abstractions" Version="9.0.1-preview.1.24570.5" />
     <PackageReference Include="Microsoft.Extensions.AI.OpenAI" Version="9.0.1-preview.1.24570.5" />

@@ -9,11 +9,11 @@
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="DevExpress.Drawing.Skia" Version="24.2.1-alpha-24260" />
-    <PackageReference Include="DevExpress.ExpressApp.Api.Xpo.All" Version="24.2.1-alpha-24260" />
-    <PackageReference Include="DevExpress.ExpressApp.CodeAnalysis" Version="24.2.1-alpha-24260" />
-    <PackageReference Include="DevExpress.ExpressApp.ReportsV2" Version="24.2.1-alpha-24260" />
-    <PackageReference Include="DevExpress.ExpressApp.Validation" Version="24.2.1-alpha-24260" />
+    <PackageReference Include="DevExpress.Drawing.Skia" Version="24.2.3" />
+    <PackageReference Include="DevExpress.ExpressApp.Api.Xpo.All" Version="24.2.3" />
+    <PackageReference Include="DevExpress.ExpressApp.CodeAnalysis" Version="24.2.3" />
+    <PackageReference Include="DevExpress.ExpressApp.ReportsV2" Version="24.2.3" />
+    <PackageReference Include="DevExpress.ExpressApp.Validation" Version="24.2.3" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="9.0.0" />
     <PackageReference Include="Microsoft.Extensions.AI.Abstractions" Version="9.0.1-preview.1.24570.5" />
     <PackageReference Include="Microsoft.Extensions.AI.OpenAI" Version="9.0.1-preview.1.24570.5" />

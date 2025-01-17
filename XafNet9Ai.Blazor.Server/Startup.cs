@@ -120,8 +120,8 @@ public class Startup {
             if (aiSettings.Service.ToLower() == "openai")
             {
                 var clientOpenAi = new OpenAIClient(new System.ClientModel.ApiKeyCredential(OpenAiKey));
-                config.RegisterChatClientOpenAIService(clientOpenAi, aiSettings.Model);
-                config.RegisterOpenAIAssistants(clientOpenAi, aiSettings.Model);
+                //config.RegisterChatClientOpenAIService(clientOpenAi, aiSettings.Model);
+                //config.RegisterOpenAIAssistants(clientOpenAi, aiSettings.Model);
 
             }
             if (aiSettings.Service.ToLower() == "Azure")
@@ -129,8 +129,8 @@ public class Startup {
                 var clientAzure = new AzureOpenAIClient(
                     new Uri(aiSettings.EndPoint),
                     new AzureKeyCredential(aiSettings.Key));
-                config.RegisterChatClientOpenAIService(clientAzure, aiSettings.Model);
-                config.RegisterOpenAIAssistants(clientAzure, aiSettings.Model);
+                //config.RegisterChatClientOpenAIService(clientAzure, aiSettings.Model);
+                //config.RegisterOpenAIAssistants(clientAzure, aiSettings.Model);
 
 
             }
